@@ -21,7 +21,7 @@ jobs:
         run: pip install requests beautifulsoup4 pandas
 
       - name: Run scraper
-        run: scraping.py
+        run: python scraping.py
 
       - name: Commit and push changes
         run: |
@@ -30,3 +30,4 @@ jobs:
           git add bot_historical_rates.csv
           git commit -m "Auto-update FX rates" || exit 0
           git push
+
