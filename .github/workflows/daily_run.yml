@@ -1,0 +1,32 @@
+name: Daily BoT Scraper
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install libraries
+        run: pip install requests beautifulsoup4 pandas
+
+      - name: Run scraper
+        run: scraping.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add bot_historical_rates.csv
+          git commit -m "Auto-update FX rates" || exit 0
+          git push
