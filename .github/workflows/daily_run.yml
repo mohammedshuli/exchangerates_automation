@@ -5,6 +5,9 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,4 +33,5 @@ jobs:
           git add bot_historical_rates.csv
           git commit -m "Auto-update FX rates" || exit 0
           git push
+
 
